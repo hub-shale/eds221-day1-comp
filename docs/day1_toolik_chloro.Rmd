@@ -1,0 +1,51 @@
+---
+title: "day1_toolik_chloro"
+author: "Shale"
+date: "8/9/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(janitor)
+library(skimr)
+```
+
+
+## Getting to the data, summary
+
+```{r}
+toolik_chlorophyll <- read_csv(here("data", "data-raw", "toolik_chlorophyll.csv"), na = ".")
+# reads data from specified file to populate R object
+```
+
+
+```{r}
+skim(toolik_chlorophyll)
+head(toolik_chlorophyll)
+summary(toolik_chlorophyll)
+```
+
+
+## Clean names
+
+```{r}
+toolik_chlorophyll = toolik_chlorophyll %>% clean_names()
+```
+
+
+## plot
+
+```{r}
+# naming plots is nice so you can save them easier
+chloro_plot = ggplot(data = toolik_chlorophyll, aes(x = active_chl_a_ug_l, y = depth)) +
+  geom_point(aes(size = "active_chl_a_ug_l"), color = "tomato") +
+  theme_light()
+  
+chloro_plot  
+
+ggsave(here::here("figs", "chloro_plot.jpg"))
+```
+

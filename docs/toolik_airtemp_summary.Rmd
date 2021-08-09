@@ -18,7 +18,8 @@ library(skimr)
 The data are stored in the `data-raw` subfolder. We'll use `here::here()` to point to it, and read it in using the `readr::read_csv()` function from the `readr` package (part of the `tidyverse`). 
 
 ```{r}
-toolik_weather <- read_csv(here::here("data", "data-raw", "toolik_weather.csv"))
+toolik_weather <- read_csv(here::here("data", "data-raw", "toolik_weather.csv"), na = "#N/A")
+# data.table.fread() can be better for huge data sets
 ```
 
 
@@ -81,6 +82,7 @@ toolik_temp_plot
 
 ```{r}
 ggsave(here::here("figs", "toolik_temp_plot.png"), height = 6, width = 7)
+## saves most recent graphic in file path specified at size specified.
 ```
 
 Now try changing something about the ggplot code, and re-run your `ggsave()` line above. Does your saved figure change? Great! 
